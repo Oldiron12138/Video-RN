@@ -221,7 +221,7 @@ class PlayerScreenF extends React.Component{
                                resizeMode="cover"
                                onLoad={(e)=>this.customerOnload(e)}
                                onProgress={(e)=>this.customerOnprogress(e)}
-                               fullscreen={true}
+                               //fullscreen={true}
                         />
                     </TouchableWithoutFeedback>
                     {/* 播放的按钮：点击之后需要消失 */}

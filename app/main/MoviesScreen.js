@@ -50,7 +50,6 @@ class MoviesList extends Component{
 
     loginClick() {
         this.props.navigation.navigate('Account');
-
     }
 
     render() {
@@ -194,7 +193,6 @@ class MoviesList extends Component{
                         {item.num}
                     </Text>
                 </View>
-
             </TouchableOpacity>
         )
     }
