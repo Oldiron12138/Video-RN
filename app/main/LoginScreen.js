@@ -105,7 +105,7 @@ class LoginScreen extends Component{
             }
         }
 
-        this.setState({accountId: '',coin:''});
+        //this.setState({accountId: '',coin:''});
         const init = {
             method: 'GET',
 
@@ -124,6 +124,8 @@ class LoginScreen extends Component{
                 if (responseJson.num != null) {
                     console.log('zwj start login success')
                     DeviceStorage.save('alreadyLogin',true)
+                    DeviceStorage.save('accountName',this.state.accountId)
+                    DeviceStorage.save('accountPwd',this.state.pwd)
                     // let resetAction = CommonActions.reset({
                     //     index: 0,
                     //     actions: [
@@ -134,7 +136,6 @@ class LoginScreen extends Component{
                     // this.props.navigation.dispatch(
                     //     StackActions.popToTop()
                     // );
-                    this.props.callBack()
                     this.props.navigation.navigate('Home')
                 } else {
 
@@ -149,7 +150,7 @@ class LoginScreen extends Component{
 
     render() {
         return (
-            <ImageBackground source={{uri: "https://img2.baidu.com/it/u=2674742870,1913215722&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=753"}} style={{width:'100%',height:'100%',flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start'}}>
+            <ImageBackground source={{uri: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp3.itc.cn%2Fq_70%2Fimages01%2F20210719%2F67f49f3e783e497a80170bcda0c58c79.jpeg&refer=http%3A%2F%2Fp3.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650797081&t=7719872d4c615547f0e6d76c9f676bab"}} style={{width:'100%',height:'100%',flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start'}}>
                 <View style={{flexDirection:'row',alignItems:'center',backgroundColor:'#E1F7DDD2',marginRight:20,marginLeft:20,borderRadius:10,width:screenW-40,marginTop:30,padding:20}}>
 
                     <TextInput

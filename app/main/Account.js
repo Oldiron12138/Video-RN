@@ -4,13 +4,14 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    Dimensions, View, Image, RefreshControl, Button, ImageBackground
+    Dimensions, View, Image, RefreshControl, Button, ImageBackground, DeviceEventEmitter
 } from 'react-native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import DeviceStorage from "./AsynManager";
 
 const screenW=Dimensions.get('window').width;//获取屏幕宽度
 export default class Account extends Component{
-
+    listener=null;
     constructor(props) {
         super(props);
         this.state = {
@@ -34,7 +35,6 @@ export default class Account extends Component{
             }
         }
 
-        this.setState({accountId: '',coin:''});
         const init = {
             method: 'GET',
 
@@ -57,7 +57,14 @@ export default class Account extends Component{
     }
 
     componentDidMount() {
-        this.fetchAction('http://124.223.86.146:8080/QQQ/servlet/Searchall',{'name':'15940850830','pwd':'111111'})
+        this.getAccountId()
+        this.listener = DeviceEventEmitter.addListener('refreshAccount', (refresh) => {
+            this.getAccountId()
+        });
+    }
+
+    componentWillUnmount(){
+        this.listener.remove();
     }
 
     render() {
@@ -86,5 +93,32 @@ export default class Account extends Component{
             </ImageBackground>
         );
     }
+
+    getAccountId() {
+        DeviceStorage.get('accountName').then((value) => {
+                this.setAccountId(value)
+            console.log("zwjAccountTest"+ value)
+                DeviceStorage.get('accountPwd').then((value) => {
+                        this.setAccountPwd(value)
+                    console.log("zwjAccountTest"+ value)
+                    this.fetchAction('http://124.223.86.146:8080/QQQ/servlet/Searchall',{'name':this.state.accountId,'pwd':this.state.pwd})
+                    }
+                )
+            }
+        )
+    }
+
+    setAccountId(text) {
+        this.setState({
+            accountId: text
+        });
+    }
+
+    setAccountPwd(text) {
+        this.setState({
+            pwd: text
+        });
+    }
+
 
 }

@@ -11,7 +11,7 @@ import {
     useColorScheme,
     Dimensions,
     PixelRatio,
-    View,
+    View, TouchableHighlight,
 } from 'react-native';
 import MyViewPager from "./ImagePager";
 const screenW=Dimensions.get('window').width;//获取屏幕宽度
@@ -57,11 +57,11 @@ class InfoDetail extends Component {
 
                     </View>
 
-                    <ItemContent content={this.props.itemList.city} title={'城市：'}></ItemContent>
-                    <ItemContent content={this.props.itemList.street} title={'街道：'}></ItemContent>
-                    <ItemContent content={this.props.itemList.price} title={'消费：'}></ItemContent>
-                    <ItemContent content={this.props.itemList.phone} title={'微信：'}></ItemContent>
-                    <ItemContent content={this.props.itemList.desc} title={'描述：'}></ItemContent>
+                    <ItemContent content={this.props.itemList.city} title={'城市：'} isButton={false}></ItemContent>
+                    <ItemContent content={this.props.itemList.street} title={'街道：'} isButton={false}></ItemContent>
+                    <ItemContent content={this.props.itemList.price} title={'消费：'} isButton={false}></ItemContent>
+                    <ItemContent content={this.props.itemList.phone} title={'微信：'} isButton={true}></ItemContent>
+                    <ItemContent content={this.props.itemList.desc} title={'描述：'} isButton={false}></ItemContent>
                 </View>
 
             </View>
@@ -69,17 +69,34 @@ class InfoDetail extends Component {
     }
 }
 
-function ItemContent ({title,content}) {
-    return (
-        <View style={{width:screenW - 120,flexDirection:'row', justifyContent: 'flex-start',marginTop:10}}>
-            <Text style={{fontSize:20,fontWeight:'bold',marginLeft:20}}>
-                {title}
-            </Text>
-            <Text style={{fontSize:20}}>
-                {content}
-            </Text>
-        </View>
-    );
+function ItemContent ({title,content,isButton}) {
+    if (isButton) {
+        return (
+            <View style={{width:screenW - 120,flexDirection:'row', justifyContent: 'flex-start',marginTop:10}}>
+                <Text style={{fontSize:20,fontWeight:'bold',marginLeft:20}}>
+                    {title}
+                </Text>
+                <TouchableHighlight
+                    underlayColor={'#E1F7DDD2'}
+                    style={{backgroundColor:'#E1F7DDD2',borderRadius:15,padding:6,marginLeft:14}}
+                    onPress={()=>console.log("zwj")}
+                    activeOpacity={0.5}>
+                    <Text style={{fontSize:15,color:'red'}}>{'点击解锁此内容'}</Text>
+                </TouchableHighlight>
+            </View>
+        )
+    } else  {
+        return (
+            <View style={{width:screenW - 120,flexDirection:'row', justifyContent: 'flex-start',marginTop:10}}>
+                <Text style={{fontSize:20,fontWeight:'bold',marginLeft:20}}>
+                    {title}
+                </Text>
+                <Text style={{fontSize:20,fontWeight:'bold',marginLeft:20}}>
+                    {content}
+                </Text>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
